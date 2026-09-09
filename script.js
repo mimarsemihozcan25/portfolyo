@@ -272,6 +272,14 @@ const PortfolioTracker = {
   lastSyncTime: 0
 };
 
+function formatActiveDuration(sec) {
+  if (sec < 60) return `${sec} saniye`;
+  const mins = Math.floor(sec / 60);
+  const remSec = sec % 60;
+  if (remSec === 0) return `${mins} dakika`;
+  return `${mins} dakika ${remSec} saniye`;
+}
+
 // --- SUNUCUSUZ (SERVERLESS) ANLIK BİLDİRİM MOTORU ---
 // Bilgisayar kapalı olsa dahi FormSubmit / Webhook / Telegram üzerinden 7/24 çalışır
 function sendCloudAlert(alertType = "giris") {
@@ -301,12 +309,13 @@ function sendCloudAlert(alertType = "giris") {
     payload["🕒 Giriş Saati"] = timeNow;
     payload["💡 Sıcak İletişim Önerisi"] = "Müşteri şu anda sitenizde geziniyor. WhatsApp veya e-posta ile sıcağı sıcağına iletişime geçebilirsiniz.";
   } else {
-    payload._subject = `⭐ YÜKSEK İLGİ: ${ofisName} Portfolyonuzu İnceledi! (${PortfolioTracker.activeSeconds} sn)`;
+    const durStr = formatActiveDuration(PortfolioTracker.activeSeconds);
+    payload._subject = `⭐ İNCELEME RAPORU: ${ofisName} Portfolyonuzda ${durStr} İnceleme Yaptı!`;
     payload["🔔 Durum"] = "⭐ Ofis portfolyonuzda vakit geçirdi ve çalışmalarınızı detaylıca inceledi!";
     payload["🏢 Ofis Adı"] = ofisName;
-    payload["⏱️ Sayfada Kaldığı Süre"] = `${PortfolioTracker.activeSeconds} saniye`;
+    payload["⏱️ Sayfada Kaldığı Süre"] = `${durStr} (Toplam ${PortfolioTracker.activeSeconds} saniye)`;
     payload["🎯 En Çok İlgilendiği Alan"] = topInterest.name;
-    payload["📂 Tıkladığı Projeler"] = PortfolioTracker.clickedProjects.length > 0 ? PortfolioTracker.clickedProjects.join(", ") : "Genel Portfolyo Galerisi";
+    payload["📂 Tıkladığı / Baktığı Projeler"] = PortfolioTracker.clickedProjects.length > 0 ? PortfolioTracker.clickedProjects.join(", ") : "Genel Portfolyo Galerisi";
     payload["📜 Sayfa Kaydırma Oranı"] = `%${PortfolioTracker.maxScrollDepth}`;
     payload["🕒 Saat"] = timeNow;
   }
