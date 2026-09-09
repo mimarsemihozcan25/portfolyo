@@ -13,7 +13,7 @@ async function loadPortfolioData() {
     if (window.PRELOADED_PORTFOLIO_ITEMS && Array.isArray(window.PRELOADED_PORTFOLIO_ITEMS) && window.PRELOADED_PORTFOLIO_ITEMS.length > 0) {
       allPortfolioItems = window.PRELOADED_PORTFOLIO_ITEMS;
     } else {
-      const res = await fetch('/portfolio/portfolio_items.json');
+      const res = await fetch('./portfolio_items.json');
       allPortfolioItems = await res.json();
     }
     

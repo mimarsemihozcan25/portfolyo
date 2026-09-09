@@ -7,8 +7,8 @@
     "title": "Modern Lüks Villa & Araç Renderı",
     "original_filename": "render_01_villa_porsche.jpg",
     "type": "image",
-    "file_url": "/portfolio/assets/files/ai_render_01_villa_porsche.jpg",
-    "thumb_url": "/portfolio/assets/files/ai_render_01_villa_porsche.jpg"
+    "file_url": "./assets/files/ai_render_01_villa_porsche.jpg",
+    "thumb_url": "./assets/files/ai_render_01_villa_porsche.jpg"
   },
   {
     "id": "ai_render_20260908_032138_apartman.jpg",
@@ -18,8 +18,8 @@
     "title": "Apartman Konsept Dış Cephe Renderı",
     "original_filename": "render_20260908_032138_apartman.jpg",
     "type": "image",
-    "file_url": "/portfolio/assets/files/ai_render_20260908_032138_apartman.jpg",
-    "thumb_url": "/portfolio/assets/files/ai_render_20260908_032138_apartman.jpg"
+    "file_url": "./assets/files/ai_render_20260908_032138_apartman.jpg",
+    "thumb_url": "./assets/files/ai_render_20260908_032138_apartman.jpg"
   },
   {
     "id": "ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4",
@@ -29,8 +29,8 @@
     "title": "Mimari Yapay Zekâ Destekli Konsept Animasyonu",
     "original_filename": "WhatsApp Video 2026-09-08 at 23.53.28.mp4",
     "type": "video",
-    "file_url": "/portfolio/assets/files/ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4",
-    "thumb_url": "/portfolio/assets/files/ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4"
+    "file_url": "./assets/files/ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4",
+    "thumb_url": "./assets/files/ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4"
   },
   {
     "id": "d5_asdasdImage.png",
@@ -40,8 +40,8 @@
     "title": "D5 Render Konut Dış Cephe & Peyzaj Görseli",
     "original_filename": "asdasdImage.png",
     "type": "image",
-    "file_url": "/portfolio/assets/files/d5_asdasdImage.png",
-    "thumb_url": "/portfolio/assets/files/d5_asdasdImage.png"
+    "file_url": "./assets/files/d5_asdasdImage.png",
+    "thumb_url": "./assets/files/d5_asdasdImage.png"
   },
   {
     "id": "d5_asdasdScene_1_5.png",
@@ -51,8 +51,8 @@
     "title": "D5 Render 4K Mekan Görselleştirmesi",
     "original_filename": "asdasdScene 1_5.png",
     "type": "image",
-    "file_url": "/portfolio/assets/files/d5_asdasdScene_1_5.png",
-    "thumb_url": "/portfolio/assets/files/d5_asdasdScene_1_5.png"
+    "file_url": "./assets/files/d5_asdasdScene_1_5.png",
+    "thumb_url": "./assets/files/d5_asdasdScene_1_5.png"
   },
   {
     "id": "d5_Image_upscale01.png",
@@ -62,8 +62,8 @@
     "title": "D5 Render 4K Mekan Görselleştirmesi",
     "original_filename": "Image_upscale01.png",
     "type": "image",
-    "file_url": "/portfolio/assets/files/d5_Image_upscale01.png",
-    "thumb_url": "/portfolio/assets/files/d5_Image_upscale01.png"
+    "file_url": "./assets/files/d5_Image_upscale01.png",
+    "thumb_url": "./assets/files/d5_Image_upscale01.png"
   },
   {
     "id": "d5_kumbag_villa_2.mp4",
@@ -73,8 +73,8 @@
     "title": "Kumbaş Villa 3D Mimari Animasyon & Sinematik Tur",
     "original_filename": "kumbağ villa (2).mp4",
     "type": "video",
-    "file_url": "/portfolio/assets/files/d5_kumbag_villa_2.mp4",
-    "thumb_url": "/portfolio/assets/files/d5_kumbag_villa_2.mp4"
+    "file_url": "./assets/files/d5_kumbag_villa_2.mp4",
+    "thumb_url": "./assets/files/d5_kumbag_villa_2.mp4"
   },
   {
     "id": "d5_kumbag_villa_proje_render.png",
@@ -84,8 +84,8 @@
     "title": "Kumbaş Villa Dış Mekan Proje Renderı",
     "original_filename": "kumbağ villa proje render.png",
     "type": "image",
-    "file_url": "/portfolio/assets/files/d5_kumbag_villa_proje_render.png",
-    "thumb_url": "/portfolio/assets/files/d5_kumbag_villa_proje_render.png"
+    "file_url": "./assets/files/d5_kumbag_villa_proje_render.png",
+    "thumb_url": "./assets/files/d5_kumbag_villa_proje_render.png"
   },
   {
     "id": "d5_Scene_14_upscale01.png",
@@ -95,8 +95,8 @@
     "title": "D5 Render 4K Mekan Görselleştirmesi",
     "original_filename": "Scene 14_upscale01.png",
     "type": "image",
-    "file_url": "/portfolio/assets/files/d5_Scene_14_upscale01.png",
-    "thumb_url": "/portfolio/assets/files/d5_Scene_14_upscale01.png"
+    "file_url": "./assets/files/d5_Scene_14_upscale01.png",
+    "thumb_url": "./assets/files/d5_Scene_14_upscale01.png"
   },
   {
     "id": "d5_Scene_19_1.png",
@@ -106,8 +106,8 @@
     "title": "D5 Render 4K Mekan Görselleştirmesi",
     "original_filename": "Scene 19_1.png",
     "type": "image",
-    "file_url": "/portfolio/assets/files/d5_Scene_19_1.png",
-    "thumb_url": "/portfolio/assets/files/d5_Scene_19_1.png"
+    "file_url": "./assets/files/d5_Scene_19_1.png",
+    "thumb_url": "./assets/files/d5_Scene_19_1.png"
   },
   {
     "id": "d5_WhatsApp_Image_2026-09-08_at_23.55.02.jpeg",
@@ -117,8 +117,8 @@
     "title": "D5 Render İç Mekan Perspektif Görselleştirmesi",
     "original_filename": "WhatsApp Image 2026-09-08 at 23.55.02.jpeg",
     "type": "image",
-    "file_url": "/portfolio/assets/files/d5_WhatsApp_Image_2026-09-08_at_23.55.02.jpeg",
-    "thumb_url": "/portfolio/assets/files/d5_WhatsApp_Image_2026-09-08_at_23.55.02.jpeg"
+    "file_url": "./assets/files/d5_WhatsApp_Image_2026-09-08_at_23.55.02.jpeg",
+    "thumb_url": "./assets/files/d5_WhatsApp_Image_2026-09-08_at_23.55.02.jpeg"
   },
   {
     "id": "d5_WhatsApp_Image_2026-09-08_at_23.56.20.jpeg",
@@ -128,8 +128,8 @@
     "title": "D5 Render Modern Yaşam Alanı Tasarımı",
     "original_filename": "WhatsApp Image 2026-09-08 at 23.56.20.jpeg",
     "type": "image",
-    "file_url": "/portfolio/assets/files/d5_WhatsApp_Image_2026-09-08_at_23.56.20.jpeg",
-    "thumb_url": "/portfolio/assets/files/d5_WhatsApp_Image_2026-09-08_at_23.56.20.jpeg"
+    "file_url": "./assets/files/d5_WhatsApp_Image_2026-09-08_at_23.56.20.jpeg",
+    "thumb_url": "./assets/files/d5_WhatsApp_Image_2026-09-08_at_23.56.20.jpeg"
   },
   {
     "id": "detay_1220802065_AHMET_SEMIH_OZCAN_A0_DETAY.pdf",
@@ -139,8 +139,8 @@
     "title": "A0 Mimari Sistem & Uygulama Detay Paftası",
     "original_filename": "1220802065_AHMET_SEMİH_ÖZCAN_A0_DETAY.pdf",
     "type": "pdf",
-    "file_url": "/portfolio/assets/files/detay_1220802065_AHMET_SEMIH_OZCAN_A0_DETAY.pdf",
-    "thumb_url": "/portfolio/assets/thumbs/thumb_detay_1220802065_AHMET_SEMIH_OZCAN_A0_DETAY.png"
+    "file_url": "./assets/files/detay_1220802065_AHMET_SEMIH_OZCAN_A0_DETAY.pdf",
+    "thumb_url": "./assets/thumbs/thumb_detay_1220802065_AHMET_SEMIH_OZCAN_A0_DETAY.png"
   },
   {
     "id": "detay_MERDIVEN_DETAY.pdf",
@@ -150,8 +150,8 @@
     "title": "Merdiven Sistem & İmalat Detay Çizimi",
     "original_filename": "MERDİVEN DETAY.pdf",
     "type": "pdf",
-    "file_url": "/portfolio/assets/files/detay_MERDIVEN_DETAY.pdf",
-    "thumb_url": "/portfolio/assets/thumbs/thumb_detay_MERDIVEN_DETAY.png"
+    "file_url": "./assets/files/detay_MERDIVEN_DETAY.pdf",
+    "thumb_url": "./assets/thumbs/thumb_detay_MERDIVEN_DETAY.png"
   },
   {
     "id": "autocad_proje_bilmem_ne.pdf",
@@ -161,8 +161,8 @@
     "title": "AutoCAD Mimari Proje & Kat Planı Çizimi",
     "original_filename": "proje bilmem ne.pdf",
     "type": "pdf",
-    "file_url": "/portfolio/assets/files/autocad_proje_bilmem_ne.pdf",
-    "thumb_url": "/portfolio/assets/thumbs/thumb_autocad_proje_bilmem_ne.png"
+    "file_url": "./assets/files/autocad_proje_bilmem_ne.pdf",
+    "thumb_url": "./assets/thumbs/thumb_autocad_proje_bilmem_ne.png"
   },
   {
     "id": "autocad_ZEMIN_KAT.pdf",
@@ -172,8 +172,8 @@
     "title": "Zemin Kat Mimari Tefriş & Uygulama Planı",
     "original_filename": "ZEMİN KAT.pdf",
     "type": "pdf",
-    "file_url": "/portfolio/assets/files/autocad_ZEMIN_KAT.pdf",
-    "thumb_url": "/portfolio/assets/thumbs/thumb_autocad_ZEMIN_KAT.png"
+    "file_url": "./assets/files/autocad_ZEMIN_KAT.pdf",
+    "thumb_url": "./assets/thumbs/thumb_autocad_ZEMIN_KAT.png"
   },
   {
     "id": "autocad_oa.pdf",
@@ -183,8 +183,8 @@
     "title": "Mimari Kesit & Cephe Detay Çizimi",
     "original_filename": "öa.pdf",
     "type": "pdf",
-    "file_url": "/portfolio/assets/files/autocad_oa.pdf",
-    "thumb_url": "/portfolio/assets/thumbs/thumb_autocad_oa.png"
+    "file_url": "./assets/files/autocad_oa.pdf",
+    "thumb_url": "./assets/thumbs/thumb_autocad_oa.png"
   },
   {
     "id": "pafta_analiz_paftasi_compressed_1.pdf",
@@ -194,8 +194,8 @@
     "title": "Kentsel & Mimari Analiz Sunum Paftası",
     "original_filename": "analiz paftası_compressed (1).pdf",
     "type": "pdf",
-    "file_url": "/portfolio/assets/files/pafta_analiz_paftasi_compressed_1.pdf",
-    "thumb_url": "/portfolio/assets/thumbs/thumb_pafta_analiz_paftasi_compressed_1.png"
+    "file_url": "./assets/files/pafta_analiz_paftasi_compressed_1.pdf",
+    "thumb_url": "./assets/thumbs/thumb_pafta_analiz_paftasi_compressed_1.png"
   },
   {
     "id": "pafta_WhatsApp_Image_2026-09-08_at_23.56.47.jpeg",
@@ -205,8 +205,8 @@
     "title": "Konsept Pafta Tasarımı & Proje Sunumu",
     "original_filename": "WhatsApp Image 2026-09-08 at 23.56.47.jpeg",
     "type": "image",
-    "file_url": "/portfolio/assets/files/pafta_WhatsApp_Image_2026-09-08_at_23.56.47.jpeg",
-    "thumb_url": "/portfolio/assets/files/pafta_WhatsApp_Image_2026-09-08_at_23.56.47.jpeg"
+    "file_url": "./assets/files/pafta_WhatsApp_Image_2026-09-08_at_23.56.47.jpeg",
+    "thumb_url": "./assets/files/pafta_WhatsApp_Image_2026-09-08_at_23.56.47.jpeg"
   },
   {
     "id": "archicad_kolon_kiris.pdf",
@@ -216,7 +216,7 @@
     "title": "ArchiCAD Kolon - Kiriş Taşıyıcı Sistem Detayı",
     "original_filename": "kolon kiriş.pdf",
     "type": "pdf",
-    "file_url": "/portfolio/assets/files/archicad_kolon_kiris.pdf",
-    "thumb_url": "/portfolio/assets/thumbs/thumb_archicad_kolon_kiris.png"
+    "file_url": "./assets/files/archicad_kolon_kiris.pdf",
+    "thumb_url": "./assets/thumbs/thumb_archicad_kolon_kiris.png"
   }
 ]

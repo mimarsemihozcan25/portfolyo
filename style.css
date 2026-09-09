@@ -283,7 +283,7 @@ body {
   max-width: 1200px;
   height: 380px;
   border-radius: var(--radius-xl);
-  background-image: linear-gradient(180deg, rgba(5, 7, 11, 0.4) 0%, rgba(5, 7, 11, 0.96) 90%), url('/portfolio/assets/files/d5_kumbag_villa_proje_render.png');
+  background-image: linear-gradient(180deg, rgba(5, 7, 11, 0.4) 0%, rgba(5, 7, 11, 0.96) 90%), url('./assets/files/d5_kumbag_villa_proje_render.png');
   background-size: cover;
   background-position: center 35%;
   opacity: 0.35;
