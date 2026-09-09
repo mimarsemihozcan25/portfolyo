@@ -235,9 +235,13 @@ function setupSmoothScroll() {
 // --- PORTFOLYO DERİN OKUMA & BÖLÜM TAKİBİ (ADVANCED ANALYTICS TRACKER) ---
 const PortfolioTracker = {
   ref: null,
+  ofis: null,
+  ilce: null,
   viewId: null,
   activeSeconds: 0,
   maxScrollDepth: 0,
+  initialAlertSent: false,
+  deepAlertSent: false,
   categoryScores: {
     d5: 0,
     archicad: 0,
@@ -268,6 +272,86 @@ const PortfolioTracker = {
   lastSyncTime: 0
 };
 
+// --- SUNUCUSUZ (SERVERLESS) ANLIK BİLDİRİM MOTORU ---
+// Bilgisayar kapalı olsa dahi FormSubmit / Webhook / Telegram üzerinden 7/24 çalışır
+function sendCloudAlert(alertType = "giris") {
+  if (!PortfolioTracker.ref && !PortfolioTracker.ofis) return;
+
+  if (alertType === "giris" && PortfolioTracker.initialAlertSent) return;
+  if (alertType === "derin" && PortfolioTracker.deepAlertSent) return;
+
+  if (alertType === "giris") PortfolioTracker.initialAlertSent = true;
+  if (alertType === "derin") PortfolioTracker.deepAlertSent = true;
+
+  const ofisName = PortfolioTracker.ofis || ("Mimarlık Ofisi (ID: " + PortfolioTracker.ref + ")");
+  const ilceStr = PortfolioTracker.ilce ? ` (${PortfolioTracker.ilce})` : "";
+  const topInterest = getTopInterest();
+  const timeNow = new Date().toLocaleString("tr-TR", { timeZone: "Europe/Istanbul" });
+
+  let payload = {
+    _template: "table",
+    _captcha: "false"
+  };
+
+  if (alertType === "giris") {
+    payload._subject = `🔥 SICAK MÜŞTERİ: ${ofisName}${ilceStr} Portfolyonuzu Açtı!`;
+    payload["🔔 Durum"] = "🔥 Bir mimarlık ofisi az önce e-postanızdaki portfolyo linkine tıkladı!";
+    payload["🏢 Ofis Adı"] = ofisName;
+    payload["📍 İlçe / Şehir"] = PortfolioTracker.ilce || "Belirtilmemiş";
+    payload["🕒 Giriş Saati"] = timeNow;
+    payload["💡 Sıcak İletişim Önerisi"] = "Müşteri şu anda sitenizde geziniyor. WhatsApp veya e-posta ile sıcağı sıcağına iletişime geçebilirsiniz.";
+  } else {
+    payload._subject = `⭐ YÜKSEK İLGİ: ${ofisName} Portfolyonuzu İnceledi! (${PortfolioTracker.activeSeconds} sn)`;
+    payload["🔔 Durum"] = "⭐ Ofis portfolyonuzda vakit geçirdi ve çalışmalarınızı detaylıca inceledi!";
+    payload["🏢 Ofis Adı"] = ofisName;
+    payload["⏱️ Sayfada Kaldığı Süre"] = `${PortfolioTracker.activeSeconds} saniye`;
+    payload["🎯 En Çok İlgilendiği Alan"] = topInterest.name;
+    payload["📂 Tıkladığı Projeler"] = PortfolioTracker.clickedProjects.length > 0 ? PortfolioTracker.clickedProjects.join(", ") : "Genel Portfolyo Galerisi";
+    payload["📜 Sayfa Kaydırma Oranı"] = `%${PortfolioTracker.maxScrollDepth}`;
+    payload["🕒 Saat"] = timeNow;
+  }
+
+  // 1. E-POSTA BİLDİRİMİ (FormSubmit Serverless API - 7/24 Kesintisiz)
+  try {
+    fetch("https://formsubmit.co/ajax/asozcan2525@gmail.com", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
+  } catch (e) {}
+
+  // 2. TELEGRAM BİLDİRİMİ (Tanımlıysa anında sesli mesaj)
+  if (window.TELEGRAM_CONFIG && window.TELEGRAM_CONFIG.bot_token && window.TELEGRAM_CONFIG.chat_id) {
+    try {
+      const text = alertType === "giris"
+        ? `🔥 <b>SICAK MÜŞTERİ ALARMI!</b>\n\n🏢 <b>Ofis:</b> ${ofisName}${ilceStr}\n🕒 <b>Saat:</b> ${timeNow}\n\n💡 <i>Bir mimarlık ofisi az önce portfolyonuzu açtı!</i>`
+        : `⭐ <b>YÜKSEK İLGİ BİLDİRİMİ!</b>\n\n🏢 <b>Ofis:</b> ${ofisName}\n⏱️ <b>Süre:</b> ${PortfolioTracker.activeSeconds} sn\n🎯 <b>İlgi Alanı:</b> ${topInterest.name}\n\n💼 <i>Detaylı inceleme tamamlandı!</i>`;
+
+      fetch(`https://api.telegram.org/bot${window.TELEGRAM_CONFIG.bot_token}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: window.TELEGRAM_CONFIG.chat_id,
+          text: text,
+          parse_mode: "HTML"
+        })
+      }).catch(() => {});
+    } catch (e) {}
+  }
+
+  // 3. Yerel Flask Sunucusuna da Bildir (Eğer bilgisayar açıksa SQLite'a da yazsın)
+  try {
+    fetch('/api/track-view', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ lead_id: PortfolioTracker.ref, referrer: document.referrer || 'E-posta' })
+    }).catch(() => {});
+  } catch (e) {}
+}
+
 function trackCategoryInterest(filter) {
   if (!filter || filter === 'all') return;
   if (PortfolioTracker.categoryScores[filter] !== undefined) {
@@ -284,8 +368,14 @@ function trackProjectClick(item) {
   }
   const cat = item.category_id || (item.type === 'video' ? 'video' : 'd5');
   if (PortfolioTracker.categoryScores[cat] !== undefined) {
-    PortfolioTracker.categoryScores[cat] += 25; // Detaylı inceleme en yüksek ilgi puanıdır
+    PortfolioTracker.categoryScores[cat] += 25;
   }
+  
+  // 2 veya daha fazla projeye tıklarsa hemen derin ilgi bildirimi at
+  if (PortfolioTracker.clickedProjects.length >= 2 && !PortfolioTracker.deepAlertSent) {
+    sendCloudAlert("derin");
+  }
+  
   sendReadingAnalytics(true);
 }
 
@@ -299,7 +389,6 @@ function getTopInterest() {
     }
   }
   
-  // Eğer henüz belirgin bir kategoriye tıklamadıysa ama animasyonlar bölümünde çok kaldıysa:
   if (maxScore <= 0 && PortfolioTracker.sectionsTime.animasyonlar > 15) {
     bestCat = 'video';
   }
@@ -311,11 +400,11 @@ function getTopInterest() {
 }
 
 function sendReadingAnalytics(immediate = false) {
-  if (!PortfolioTracker.ref) return;
+  if (!PortfolioTracker.ref && !PortfolioTracker.ofis) return;
   
   const now = Date.now();
   if (!immediate && (now - PortfolioTracker.lastSyncTime < 6000)) {
-    return; // Çok sık istek atıp sunucuyu yorma
+    return;
   }
   PortfolioTracker.lastSyncTime = now;
 
@@ -336,10 +425,6 @@ function sendReadingAnalytics(immediate = false) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).then(r => r.json()).then(res => {
-      if (res && res.view_id && !PortfolioTracker.viewId) {
-        PortfolioTracker.viewId = res.view_id;
-      }
     }).catch(() => {});
   } catch (e) {}
 }
@@ -347,39 +432,38 @@ function sendReadingAnalytics(immediate = false) {
 function initPortfolioTracking() {
   const urlParams = new URLSearchParams(window.location.search);
   const ref = urlParams.get('ref') || urlParams.get('lid') || urlParams.get('id');
-  if (!ref) return;
+  const ofisParam = urlParams.get('ofis');
+  const ilceParam = urlParams.get('ilce');
+
+  if (!ref && !ofisParam) return;
 
   PortfolioTracker.ref = ref;
+  if (ofisParam) PortfolioTracker.ofis = decodeURIComponent(ofisParam.replace(/\+/g, ' '));
+  if (ilceParam) PortfolioTracker.ilce = decodeURIComponent(ilceParam.replace(/\+/g, ' '));
 
-  // İlk giriş kaydı ve Sıcak Müşteri uyarısı
-  fetch('/api/track-view', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      lead_id: ref,
-      referrer: document.referrer || 'Doğrudan E-posta Linki'
-    })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (data && data.view_id) {
-      PortfolioTracker.viewId = data.view_id;
-      console.log("⚡ Derin Portfolyo Analizi Başlatıldı. Ziyaret ID:", PortfolioTracker.viewId);
-    }
-  })
-  .catch(e => console.log("Takip başlatılamadı:", e));
+  console.log("⚡ Portfolyo Analizi Başlatıldı:", PortfolioTracker.ofis || PortfolioTracker.ref);
 
-  // 1 Saniyelik Aktif Zaman Sayacı (Sekme arka planda ise saymaz)
+  // 1. Sayfa açıldıktan 1.5 saniye sonra ilk Sıcak Müşteri uyarısı buluta iletilir
+  setTimeout(() => {
+    sendCloudAlert("giris");
+  }, 1500);
+
+  // 1 Saniyelik Aktif Zaman Sayacı
   setInterval(() => {
     if (document.visibilityState === 'visible') {
       PortfolioTracker.activeSeconds += 1;
       if (PortfolioTracker.currentSection && PortfolioTracker.sectionsTime[PortfolioTracker.currentSection] !== undefined) {
         PortfolioTracker.sectionsTime[PortfolioTracker.currentSection] += 1;
       }
+      
+      // Ziyaretçi 25 saniye sayfada kalırsa derin ilgi uyarısını otomatik gönder
+      if (PortfolioTracker.activeSeconds === 25 && !PortfolioTracker.deepAlertSent) {
+        sendCloudAlert("derin");
+      }
     }
   }, 1000);
 
-  // Her 10 saniyede bir verileri sunucuya senkronize et
+  // Her 10 saniyede bir yerel senkronizasyon (bilgisayar açıksa)
   setInterval(() => {
     sendReadingAnalytics(false);
   }, 10000);
@@ -395,7 +479,7 @@ function initPortfolioTracking() {
     }
   }, { passive: true });
 
-  // Bölüm Geçiş Gözlemcisi (Hangi bölümde ne kadar durdu?)
+  // Bölüm Geçiş Gözlemcisi
   const sections = document.querySelectorAll('section[id], header');
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
@@ -427,23 +511,13 @@ function initPortfolioTracking() {
     });
   }
 
-  // Sayfadan çıkış anında kayıpsız gönderim (Beacon)
+  // Sayfadan çıkış anında derin inceleme gönderimi (en az 12 saniye durduysa)
   window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
-      const top = getTopInterest();
-      const payload = JSON.stringify({
-        lead_id: PortfolioTracker.ref,
-        view_id: PortfolioTracker.viewId,
-        duration_seconds: PortfolioTracker.activeSeconds,
-        top_category: top.key,
-        top_category_name: top.name,
-        clicked_items: PortfolioTracker.clickedProjects,
-        scroll_depth: PortfolioTracker.maxScrollDepth,
-        sections_breakdown: PortfolioTracker.sectionsTime
-      });
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon('/api/track-reading', new Blob([payload], { type: 'application/json' }));
+      if (PortfolioTracker.activeSeconds >= 12 && !PortfolioTracker.deepAlertSent) {
+        sendCloudAlert("derin");
       }
+      sendReadingAnalytics(true);
     }
   });
 }
