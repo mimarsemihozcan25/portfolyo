@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmet Semih Özcan | Mimari Tasarım, Render, Animasyon & Çizim Atölyesi</title>
+  <meta name="description" content="Ahmet Semih Özcan - Mimari Portfolyo: D5 Render, 3D Sinematik Mimari Animasyonlar, ArchiCAD paftalama, AutoCAD teknik detay projeleri.">
+  <link rel="stylesheet" href="/portfolio/style.css?v=2.3">
+  <link rel="stylesheet" href="/style.css?v=2.3">
+  <style>
+/* === LUXURY ARCHITECTURAL ATELIER - PREMIUM DESIGN SYSTEM === */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  --bg-deep: #05070B;
+  --bg-surface: #090D15;
+  --bg-surface-elevated: #0F1420;
+  --bg-glass: rgba(12, 17, 27, 0.75);
+  --bg-glass-card: rgba(15, 21, 33, 0.65);
+  
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-gold: rgba(212, 175, 55, 0.35);
+  --border-gold-hover: rgba(212, 175, 55, 0.7);
+  
+  --gold: #D4AF37;
+  --gold-light: #F3E5AB;
+  --gold-glow: rgba(212, 175, 55, 0.2);
+  --cyan-accent: #38BDF8;
+  --purple-accent: #C026D3;
+  
+  --text-pure: #FFFFFF;
+  --text-heading: #F8FAFC;
+  --text-body: #94A3B8;
+  --text-muted: #64748B;
+  
+  --font-display: 'Syne', sans-serif;
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Space Grotesk', monospace;
+  
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+  --shadow-hover: 0 20px 40px -15px rgba(0, 0, 0, 0.9), 0 0 25px rgba(212, 175, 55, 0.15);
+  --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-deep);
+  color: var(--text-heading);
+  line-height: 1.65;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* === ARCHITECTURAL BLUEPRINT CANVAS BACKGROUND === */
+.bg-canvas-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Subtle drafting grid */
+.architectural-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, #000 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, #000 60%, transparent 100%);
+}
+
+/* Macro grid lines */
+.architectural-macro-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+  background-size: 240px 240px;
+}
+
+/* Dramatic Ambient Spotlights (Gallery Lighting) */
+.ambient-light-1 {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, rgba(56, 189, 248, 0.04) 45%, transparent 75%);
+  filter: blur(100px);
+}
+
+.ambient-light-2 {
+  position: absolute;
+  top: 40%;
+  right: -10%;
+  width: 700px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.06) 0%, rgba(192, 38, 211, 0.03) 50%, transparent 70%);
+  filter: blur(120px);
+}
+
+.ambient-light-3 {
+  position: absolute;
+  bottom: 10%;
+  left: -10%;
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.07) 0%, transparent 70%);
+  filter: blur(120px);
+}
+
+/* Subtle Filmic Grain Overlay */
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Decorative Ruler / Blueprint Ticks */
+.blueprint-decorations {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.decor-crosshair {
+  position: absolute;
+  color: rgba(212, 175, 55, 0.3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.decor-top-left { top: 25px; left: 25px; }
+.decor-top-right { top: 25px; right: 25px; }
+.decor-bottom-left { bottom: 25px; left: 25px; }
+.decor-bottom-right { bottom: 25px; right: 25px; }
+
+/* === NAVBAR === */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background: rgba(5, 7, 11, 0.82);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 1.1rem 2.5rem;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-xs);
+  background: linear-gradient(145deg, #161D2B, #0A0E17);
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 0 16px var(--gold-glow);
+}
+
+.brand-title-group .name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-pure);
+  display: block;
+}
+
+.brand-title-group .tagline {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+.nav-links a:not(.nav-cta) {
+  color: var(--text-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  position: relative;
+  padding: 4px 0;
+}
+
+.nav-links a:not(.nav-cta):hover {
+  color: var(--text-pure);
+}
+
+.nav-links a:not(.nav-cta)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:not(.nav-cta):hover::after {
+  width: 100%;
+}
+
+.nav-cta {
+  padding: 0.65rem 1.4rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-medium);
+  border-radius: 40px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-pure);
+  letter-spacing: 0.02em;
+}
+
+.nav-cta:hover {
+  background: var(--text-pure);
+  color: var(--bg-deep);
+  border-color: var(--text-pure);
+}
+
+/* === CINEMATIC HERO SECTION === */
+.hero-section {
+  position: relative;
+  padding: 6.5rem 2rem 5.5rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Hero Background Render Card Banner */
+.hero-backdrop-render {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  max-width: 1200px;
+  height: 380px;
+  border-radius: var(--radius-xl);
+  background-image: linear-gradient(180deg, rgba(5, 7, 11, 0.4) 0%, rgba(5, 7, 11, 0.96) 90%), url('/portfolio/assets/files/d5_kumbag_villa_proje_render.png');
+  background-size: cover;
+  background-position: center 35%;
+  opacity: 0.35;
+  filter: blur(1px);
+  z-index: 0;
+  border: 1px solid var(--border-subtle);
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.5rem 1.2rem;
+  background: rgba(15, 21, 33, 0.8);
+  border: 1px solid var(--border-gold);
+  border-radius: 40px;
+  backdrop-filter: blur(12px);
+  color: var(--gold-light);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.hero-status-pill .indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: pulse 2.2s infinite;
+}
+
+.hero-headline {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5.5vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.6rem;
+}
+
+.hero-headline .gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 15%, #F59E0B 75%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  font-size: 1.16rem;
+  color: var(--text-body);
+  max-width: 820px;
+  margin: 0 auto 2.8rem;
+  line-height: 1.7;
+}
+
+.hero-description strong {
+  color: #FFF;
+  font-weight: 600;
+}
+
+.hero-actions-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0.95rem 2rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+}
+
+.btn-hero-primary {
+  background: linear-gradient(135deg, #D4AF37, #B48A1C);
+  color: #05070B;
+  font-weight: 700;
+  box-shadow: 0 10px 30px var(--gold-glow);
+}
+
+.btn-hero-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+  color: #000;
+}
+
+.btn-hero-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-medium);
+  color: var(--text-pure);
+  backdrop-filter: blur(8px);
+}
+
+.btn-hero-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px);
+}
+
+.btn-hero-dark {
+  background: #0E1422;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-body);
+}
+
+.btn-hero-dark:hover {
+  border-color: var(--border-gold);
+  color: var(--gold);
+  transform: translateY(-3px);
+}
+
+/* === SECTION HEADERS === */
+.section-header-block {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 3.8rem;
+  position: relative;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  background: rgba(212, 175, 55, 0.08);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  color: var(--text-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+/* === FEATURED VIDEO THEATER SECTION === */
+.video-theater-section {
+  padding: 5rem 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.video-theater-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+  gap: 2.5rem;
+}
+
+@media (max-width: 650px) {
+  .video-theater-grid { grid-template-columns: 1fr; }
+}
+
+.theater-card {
+  background: var(--bg-glass-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.theater-card:hover {
+  border-color: var(--border-gold-hover);
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.theater-screen-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.theater-screen-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.theater-live-tag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: var(--radius-xs);
+  background: rgba(7, 10, 17, 0.85);
+  border: 1px solid var(--border-gold);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+
+.theater-live-tag.ai-tag {
+  border-color: rgba(192, 38, 211, 0.5);
+  color: #F0ABFC;
+}
+
+.theater-content-box {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.theater-heading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.theater-heading-row h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  line-height: 1.3;
+}
+
+.theater-type-badge {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-subtle);
+  color: var(--gold);
+}
+
+.theater-description {
+  font-size: 0.94rem;
+  color: var(--text-body);
+  margin-bottom: 1.4rem;
+  flex-grow: 1;
+  line-height: 1.6;
+}
+
+.theater-specs-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.theater-specs-row span {
+  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  padding: 4px 11px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+}
+
+/* === GALLERY & CATEGORY FILTERS === */
+.gallery-section {
+  padding: 5.5rem 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.category-filter-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+
+.cat-btn {
+  background: rgba(15, 21, 33, 0.7);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-body);
+  padding: 0.65rem 1.3rem;
+  border-radius: 40px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+}
+
+.cat-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-medium);
+  color: var(--text-pure);
+}
+
+.cat-btn.active {
+  background: var(--text-pure);
+  color: var(--bg-deep);
+  border-color: var(--text-pure);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.25);
+  font-weight: 700;
+}
+
+.gallery-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 2.2rem;
+}
+
+@media (max-width: 450px) {
+  .gallery-grid-container { grid-template-columns: 1fr; }
+}
+
+/* === GALLERY ITEM CARD === */
+.project-card {
+  background: var(--bg-glass-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-gold-hover);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-media-wrap {
+  width: 100%;
+  height: 255px;
+  position: relative;
+  overflow: hidden;
+  background: #080C14;
+}
+
+.card-media-wrap img, 
+.card-media-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .card-media-wrap img {
+  transform: scale(1.06);
+}
+
+.type-indicator-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(12px);
+  z-index: 2;
+}
+
+.type-pdf {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #FCA5A5;
+}
+
+.type-video {
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: #7DD3FC;
+}
+
+.type-image {
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  color: #FDE047;
+}
+
+.play-icon-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(5, 7, 11, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  transition: var(--transition);
+  z-index: 2;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.project-card:hover .play-icon-overlay {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: var(--gold);
+  color: #000;
+  border-color: var(--gold);
+  box-shadow: 0 0 25px var(--gold-glow);
+}
+
+.card-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-category-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+
+.card-details h4 {
+  font-family: var(--font-heading);
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  margin-bottom: 1rem;
+  line-height: 1.35;
+}
+
+.card-footer-action {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.card-footer-action .action-text {
+  color: var(--text-body);
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.project-card:hover .card-footer-action .action-text {
+  color: var(--gold);
+  transform: translateX(3px);
+}
+
+/* === WHY CHOOSE SEMIH SECTION === */
+.value-proposition-section {
+  padding: 6rem 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.value-grid-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+@media (max-width: 950px) {
+  .value-grid-layout { grid-template-columns: 1fr; }
+}
+
+.value-card-item {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2.2rem;
+  background: var(--bg-glass-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+  transition: var(--transition);
+}
+
+.value-card-item:hover {
+  border-color: var(--border-gold);
+  transform: translateX(6px);
+}
+
+.val-num {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.val-text h4 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-pure);
+  margin-bottom: 0.35rem;
+}
+
+.val-text p {
+  font-size: 0.92rem;
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+/* Right Side Contact Widget */
+.contact-atelier-widget {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px var(--gold-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-atelier-widget::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold), var(--cyan-accent), var(--gold));
+}
+
+.widget-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-pure);
+  margin-bottom: 0.6rem;
+}
+
+.widget-subtitle {
+  font-size: 0.92rem;
+  color: var(--text-body);
+  margin-bottom: 2rem;
+}
+
+.widget-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-bottom: 2.2rem;
+}
+
+.detail-row-box {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.detail-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.detail-text-col .label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.detail-text-col .value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-pure);
+}
+
+.btn-contact-submit {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 1.1rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #D4AF37, #B48A1C);
+  color: #05070B;
+  font-weight: 800;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: 0 8px 24px var(--gold-glow);
+}
+
+.btn-contact-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 35px rgba(212, 175, 55, 0.45);
+}
+
+/* === FOOTER === */
+.atelier-footer {
+  border-top: 1px solid var(--border-subtle);
+  padding: 3rem 2.5rem;
+  margin-top: 6rem;
+  background: rgba(5, 7, 11, 0.9);
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-brand h4 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text-pure);
+}
+
+.footer-brand p {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--gold);
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* === FULLSCREEN CINEMA MODAL === */
+.media-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-modal.active {
+  display: flex;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.modal-content-wrap {
+  position: relative;
+  z-index: 10;
+  width: 94%;
+  max-width: 1180px;
+  max-height: 92vh;
+  background: #090D15;
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 35px var(--gold-glow);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--border-medium);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 25;
+  transition: var(--transition);
+}
+
+.modal-close-btn:hover {
+  background: var(--gold);
+  color: #000;
+  transform: rotate(90deg);
+}
+
+.modal-body {
+  width: 100%;
+  height: 68vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.modal-body img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.modal-body video {
+  width: 100%;
+  height: 100%;
+  max-height: 68vh;
+  object-fit: contain;
+}
+
+.modal-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.modal-footer {
+  padding: 1.3rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0D121D;
+  border-top: 1px solid var(--border-subtle);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.modal-badge {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.modal-meta h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  color: #FFF;
+  margin-top: 2px;
+}
+
+/* === COMPREHENSIVE MOBILE RESPONSIVE DESIGN (PHONES & TABLETS) === */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0.9rem 1.2rem;
+  }
+  .nav-links {
+    gap: 1rem;
+  }
+  .nav-links a:not(.nav-cta) {
+    font-size: 0.8rem;
+  }
+  .nav-cta {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  .blueprint-decorations {
+    display: none; /* Hide coordinate overlays on small screens */
+  }
+  .video-theater-section,
+  .gallery-section,
+  .services-contact-section {
+    padding: 3.5rem 1.2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+  .nav-container {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  .brand-logo {
+    justify-content: center;
+  }
+  .brand-title-group .name {
+    font-size: 1rem;
+  }
+  .brand-title-group .tagline {
+    font-size: 0.62rem;
+  }
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .nav-links a:not(.nav-cta) {
+    font-size: 0.76rem;
+    padding: 4px 6px;
+  }
+  .nav-cta {
+    font-size: 0.76rem;
+    padding: 0.4rem 0.85rem;
+  }
+
+  .hero-section {
+    padding: 3rem 1rem 2.5rem;
+  }
+  .hero-status-pill {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.9rem;
+    margin-bottom: 1.4rem;
+  }
+  .hero-headline {
+    font-size: 1.85rem;
+    line-height: 1.2;
+    margin-bottom: 1.2rem;
+  }
+  .hero-description {
+    font-size: 0.94rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.6;
+  }
+  .hero-actions-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  .btn-hero {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  /* Video Theater on mobile */
+  .video-theater-section {
+    padding: 3rem 1rem;
+  }
+  .video-theater-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .theater-content-box {
+    padding: 1.2rem;
+  }
+  .theater-heading-row {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .theater-heading-row h3 {
+    font-size: 1.15rem;
+  }
+  .theater-specs-row span {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  /* Gallery filters on mobile */
+  .gallery-section {
+    padding: 3rem 1rem;
+  }
+  .category-filter-bar {
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+  }
+  .cat-btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.76rem;
+  }
+
+  /* Gallery Grid on mobile */
+  .gallery-grid-container {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+  .card-media-wrap {
+    height: 210px;
+  }
+  .card-details {
+    padding: 1.1rem;
+  }
+  .card-title {
+    font-size: 1.05rem;
+  }
+  .card-meta {
+    font-size: 0.82rem;
+  }
+
+  /* Contact Widget on mobile */
+  .contact-atelier-widget {
+    padding: 1.8rem 1.2rem;
+  }
+  .widget-title {
+    font-size: 1.3rem;
+  }
+  .detail-row-box {
+    padding: 0.75rem 0.9rem;
+  }
+
+  /* Modal on mobile */
+  .modal-content-wrap {
+    width: 96%;
+    max-height: 94vh;
+    border-radius: var(--radius-md);
+  }
+  .modal-body {
+    height: 52vh;
+  }
+  .modal-body video {
+    max-height: 52vh;
+  }
+  .modal-footer {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem;
+  }
+  .modal-meta h3 {
+    font-size: 1.05rem;
+  }
+  #modalActions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  #modalActions .btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem !important;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <!-- MİMARİ BLUEPRINT VE IŞIK ARKA PLANI -->
+  <div class="bg-canvas-wrapper">
+    <div class="architectural-grid"></div>
+    <div class="architectural-macro-grid"></div>
+    <div class="ambient-light-1"></div>
+    <div class="ambient-light-2"></div>
+    <div class="ambient-light-3"></div>
+    <div class="grain-overlay"></div>
+  </div>
+
+  <!-- MİMARİ KOORDİNAT VE KOT ÇİZGİLERİ -->
+  <div class="blueprint-decorations">
+    <div class="decor-crosshair decor-top-left">+ 41°00'N 28°58'E &bull; ATELIER ÖZCAN</div>
+    <div class="decor-crosshair decor-top-right">BEYLİKDÜZÜ / İSTANBUL &bull; 2026 +</div>
+    <div class="decor-crosshair decor-bottom-left">+ ARCHICAD &bull; D5 &bull; AUTOCAD &bull; AI</div>
+    <div class="decor-crosshair decor-bottom-right">MİMARLIK SON SINIF &bull; SCALE 1:1 +</div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <div class="logo-badge">ASÖ</div>
+        <div class="brand-title-group">
+          <span class="name">AHMET SEMİH ÖZCAN</span>
+          <span class="tagline">MİMARLIK &bull; GÖRSELLEŞTİRME &bull; PAFTALAMA</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#animasyonlar">3D Animasyonlar</a>
+        <a href="#projeler">Proje Koleksiyonu</a>
+        <a href="#hakkimda">Ofis Avantajları</a>
+        <a href="#iletisim" class="nav-cta">İletişime Geç</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CINEMATIC HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-backdrop-render"></div>
+    <div class="hero-inner">
+      <div class="hero-status-pill">
+        <span class="indicator"></span>
+        <span>Beylikdüzü & Tüm İstanbul Ofislerine Esnek Çözüm Ortaklığı</span>
+      </div>
+      <h1 class="hero-headline">
+        Projelerinizin Teslim Süreçlerine <br>
+        <span class="gradient-text">Sinematik Render, Kusursuz Çizim & Hız</span>
+      </h1>
+      <p class="hero-description">
+        Mimarlık ve iç mimarlık ofislerine dış kaynak (freelance) olarak; 
+        <strong>D5 Render & Enscape</strong> fotogerçekçi görselleştirmeler, 
+        <strong>Sinematik 3D Animasyonlar</strong>, <strong>ArchiCAD & Photoshop</strong> pafta kurgusu ve 
+        <strong>AutoCAD</strong> teknik uygulama projeleri desteği sağlıyorum.
+      </p>
+      <div class="hero-actions-row">
+        <a href="#animasyonlar" class="btn-hero btn-hero-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Animasyonları Oynat
+        </a>
+        <a href="#projeler" class="btn-hero btn-hero-secondary">
+          Çalışmaları İncele
+        </a>
+        <a href="mailto:mimar.semihozcan@gmail.com?subject=Mimari%20Proje%20Teklifi" class="btn-hero btn-hero-dark">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          Proje İlet / Teklif Al
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SİNEMATİK VİDEOLAR THEATER BÖLÜMÜ -->
+  <section id="animasyonlar" class="video-theater-section">
+    <div class="section-header-block">
+      <span class="section-tag">🎬 HAREKETLİ GÖRSELLEŞTİRME</span>
+      <h2 class="section-title">Sinematik 3D Mimari Animasyonlar</h2>
+      <p class="section-subtitle">Mekânsal atmosferi, doğal peyzajı ve ışık dengesini aktaran yüksek çözünürlüklü video turları.</p>
+    </div>
+
+    <div class="video-theater-grid">
+      <!-- Video 1: Kumbaş Villa -->
+      <div class="theater-card">
+        <div class="theater-screen-wrap">
+          <video id="v1" playsinline loop muted controls preload="metadata" poster="/portfolio/assets/files/d5_kumbag_villa_proje_render.png">
+            <source src="/portfolio/assets/files/d5_kumbag_villa_2.mp4" type="video/mp4">
+          </video>
+          <div class="theater-live-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"></circle></svg>
+            D5 RENDER &bull; 4K ANİMASYON
+          </div>
+        </div>
+        <div class="theater-content-box">
+          <div class="theater-heading-row">
+            <h3>Kumbaş Villa 3D Mimari Animasyon & Dış Mekan Turu</h3>
+            <span class="theater-type-badge">D5 Render</span>
+          </div>
+          <p class="theater-description">
+            Peyzaj entegrasyonu, doğal bitki örtüsü ve gün ışığı hareketleriyle villanın mimari karakterini yansıtan akıcı sinematik kamera turu.
+          </p>
+          <div class="theater-specs-row">
+            <span>Doğal Çevre & Peyzaj</span>
+            <span>Güneş Açısı Simülasyonu</span>
+            <span>4K Sinematik Kamera</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video 2: AI Mimari Konsept -->
+      <div class="theater-card">
+        <div class="theater-screen-wrap">
+          <video id="v2" playsinline loop muted controls preload="metadata" poster="/portfolio/assets/files/ai_render_01_villa_porsche.jpg">
+            <source src="/portfolio/assets/files/ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4" type="video/mp4">
+          </video>
+          <div class="theater-live-tag ai-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"></circle></svg>
+            YAPAY ZEKÂ &bull; AI CONCEPT
+          </div>
+        </div>
+        <div class="theater-content-box">
+          <div class="theater-heading-row">
+            <h3>Yapay Zekâ Destekli Mimari Konsept & Çevre Animasyonu</h3>
+            <span class="theater-type-badge" style="color:#F0ABFC; border-color: rgba(192, 38, 211, 0.4);">AI Generative</span>
+          </div>
+          <p class="theater-description">
+            Gelecek nesil yapay zekâ video modelleriyle hızlı konsept geliştirme ve organik mimari kütle sunumu.
+          </p>
+          <div class="theater-specs-row">
+            <span>AI Destekli Akış</span>
+            <span>Hızlı Fikir Sunumu</span>
+            <span>Modern Kütle Kurgusu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÜM PROJE GALERİSİ -->
+  <section id="projeler" class="gallery-section">
+    <div class="section-header-block">
+      <span class="section-tag">🏛️ PROJE KOLEKSİYONU</span>
+      <h2 class="section-title">Seçilmiş Çizim, Pafta ve Renderlar</h2>
+      <p class="section-subtitle">Yüksek çözünürlüklü paftalar, detay çizimleri ve fotogerçekçi mekan renderları.</p>
+    </div>
+
+    <!-- Kategori Filtre Butonları -->
+    <div class="category-filter-bar" id="categoryFilters">
+      <button class="cat-btn active" data-filter="all">Tümü (<span id="countAll">0</span>)</button>
+      <button class="cat-btn" data-filter="video">🎬 Videolar (<span id="countVideo">0</span>)</button>
+      <button class="cat-btn" data-filter="d5">🏛️ D5 Render (<span id="countD5">0</span>)</button>
+      <button class="cat-btn" data-filter="ai">🤖 AI Destekli (<span id="countAI">0</span>)</button>
+      <button class="cat-btn" data-filter="pafta">📑 Pafta Tasarımları (<span id="countPafta">0</span>)</button>
+      <button class="cat-btn" data-filter="autocad">📐 AutoCAD Çizimleri (<span id="countAutocad">0</span>)</button>
+      <button class="cat-btn" data-filter="detay">⚙️ Sistem Detayları (<span id="countDetay">0</span>)</button>
+      <button class="cat-btn" data-filter="archicad">🏗️ ArchiCAD Taşıyıcı (<span id="countArchicad">0</span>)</button>
+    </div>
+
+    <!-- Dinamik Kartlar Grid -->
+    <div class="gallery-grid-container" id="portfolioGallery">
+      <!-- script.js tarafından otomatik olarak doldurulur -->
+    </div>
+  </section>
+
+  <!-- OFİS İÇİN AVANTAJLAR -->
+  <section id="hakkimda" class="value-proposition-section">
+    <div class="value-grid-layout">
+      <div>
+        <div class="section-tag">İŞ BİRLİĞİ AVANTAJLARI</div>
+        <h2 style="font-family: var(--font-heading); font-size: 2.3rem; margin-bottom: 2rem; color: #FFF;">
+          Ofisiniz İçin Neden En Doğru Çözüm Ortağıyım?
+        </h2>
+
+        <div class="value-card-item">
+          <div class="val-num">01</div>
+          <div class="val-text">
+            <h4>Piyasaya Göre Bütçe Dostu & Esnek Çalışma</h4>
+            <p>Tam zamanlı personel istihdamının getirdiği yüksek ofis ve SGK maliyetlerine girmeden; proje bazlı, şeffaf ve oldukça makul bütçelerle profesyonel teslim alırsınız.</p>
+          </div>
+        </div>
+
+        <div class="value-card-item">
+          <div class="val-num">02</div>
+          <div>
+            <h4>Hızlı İletişim & Gece Teslim Revizyonları</h4>
+            <p>Yarışma ve ruhsat teslim gecelerinde saat fark etmeksizin ulaşılabilirlik ve ofisinizin revizyon taleplerine anında profesyonel uyum.</p>
+          </div>
+        </div>
+
+        <div class="value-card-item">
+          <div class="val-num">03</div>
+          <div>
+            <h4>Yapay Zekâ ve Otomasyon Hakimiyeti</h4>
+            <p>Klasik mimari çizim araçlarının yanı sıra yapay zekâ destekli görselleştirme ve otomasyon altyapılarını kullanarak projelerinize dijital hız ve vizyon katarım.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sağ Taraf İletişim Kutusu -->
+      <div class="contact-atelier-widget" id="iletisim">
+        <h3 class="widget-title">Hemen Bir Proje Başlatalım</h3>
+        <p class="widget-subtitle">Devam eden çizim, pafta veya render ihtiyacınız olan projenizi iletin; aynı gün içinde teslim süresi ve bütçe paylaşayım.</p>
+        
+        <div class="widget-details-list">
+          <a href="mailto:mimar.semihozcan@gmail.com" class="detail-row-box">
+            <div class="detail-icon-circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div class="detail-text-col">
+              <span class="label">Resmi E-Posta</span>
+              <span class="value">mimar.semihozcan@gmail.com</span>
+            </div>
+          </a>
+          <div class="detail-row-box">
+            <div class="detail-icon-circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div class="detail-text-col">
+              <span class="label">Bölge / Lokasyon</span>
+              <span class="value">İstanbul / Beylikdüzü & Tüm Türkiye</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="mailto:mimar.semihozcan@gmail.com?subject=Mimari%20Proje%20Teklifi" class="btn-contact-submit">
+          Teklif Al / Proje İlet &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="atelier-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h4>AHMET SEMİH ÖZCAN</h4>
+        <p>Mimarlık &bull; Görselleştirme &bull; Çözüm Ortaklığı</p>
+      </div>
+      <div class="footer-copy">
+        <p>© 2026 Ahmet Semih Özcan. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FULLSCREEN CINEMA & PDF MODALI -->
+  <div class="media-modal" id="mediaModal">
+    <div class="modal-backdrop" onclick="closeMediaModal()"></div>
+    <div class="modal-content-wrap">
+      <button class="modal-close-btn" onclick="closeMediaModal()" title="Kapat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="modal-body" id="modalBody">
+        <!-- Dinamik İçerik -->
+      </div>
+      <div class="modal-footer">
+        <div class="modal-meta">
+          <span class="modal-badge" id="modalTag">KATEGORİ</span>
+          <h3 id="modalTitle">Proje Başlığı</h3>
+        </div>
+        <div id="modalActions">
+          <!-- Butonlar -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <script>
+    window.PRELOADED_PORTFOLIO_ITEMS = [
+  {
+    "id": "ai_render_01_villa_porsche.jpg",
+    "category_id": "ai",
+    "category_name": "Yapay Zekâ (AI) Destekli Render & Animasyon",
+    "tag": "AI ARCHITECTURE",
+    "title": "Modern Lüks Villa & Araç Renderı",
+    "original_filename": "render_01_villa_porsche.jpg",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/ai_render_01_villa_porsche.jpg",
+    "thumb_url": "/portfolio/assets/files/ai_render_01_villa_porsche.jpg"
+  },
+  {
+    "id": "ai_render_20260908_032138_apartman.jpg",
+    "category_id": "ai",
+    "category_name": "Yapay Zekâ (AI) Destekli Render & Animasyon",
+    "tag": "AI ARCHITECTURE",
+    "title": "Apartman Konsept Dış Cephe Renderı",
+    "original_filename": "render_20260908_032138_apartman.jpg",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/ai_render_20260908_032138_apartman.jpg",
+    "thumb_url": "/portfolio/assets/files/ai_render_20260908_032138_apartman.jpg"
+  },
+  {
+    "id": "ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4",
+    "category_id": "ai",
+    "category_name": "Yapay Zekâ (AI) Destekli Render & Animasyon",
+    "tag": "AI ARCHITECTURE",
+    "title": "Mimari Yapay Zekâ Destekli Konsept Animasyonu",
+    "original_filename": "WhatsApp Video 2026-09-08 at 23.53.28.mp4",
+    "type": "video",
+    "file_url": "/portfolio/assets/files/ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4",
+    "thumb_url": "/portfolio/assets/files/ai_WhatsApp_Video_2026-09-08_at_23.53.28.mp4"
+  },
+  {
+    "id": "d5_asdasdImage.png",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "D5 Render Konut Dış Cephe & Peyzaj Görseli",
+    "original_filename": "asdasdImage.png",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/d5_asdasdImage.png",
+    "thumb_url": "/portfolio/assets/files/d5_asdasdImage.png"
+  },
+  {
+    "id": "d5_asdasdScene_1_5.png",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "D5 Render 4K Mekan Görselleştirmesi",
+    "original_filename": "asdasdScene 1_5.png",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/d5_asdasdScene_1_5.png",
+    "thumb_url": "/portfolio/assets/files/d5_asdasdScene_1_5.png"
+  },
+  {
+    "id": "d5_Image_upscale01.png",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "D5 Render 4K Mekan Görselleştirmesi",
+    "original_filename": "Image_upscale01.png",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/d5_Image_upscale01.png",
+    "thumb_url": "/portfolio/assets/files/d5_Image_upscale01.png"
+  },
+  {
+    "id": "d5_kumbag_villa_2.mp4",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "Kumbaş Villa 3D Mimari Animasyon & Sinematik Tur",
+    "original_filename": "kumbağ villa (2).mp4",
+    "type": "video",
+    "file_url": "/portfolio/assets/files/d5_kumbag_villa_2.mp4",
+    "thumb_url": "/portfolio/assets/files/d5_kumbag_villa_2.mp4"
+  },
+  {
+    "id": "d5_kumbag_villa_proje_render.png",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "Kumbaş Villa Dış Mekan Proje Renderı",
+    "original_filename": "kumbağ villa proje render.png",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/d5_kumbag_villa_proje_render.png",
+    "thumb_url": "/portfolio/assets/files/d5_kumbag_villa_proje_render.png"
+  },
+  {
+    "id": "d5_Scene_14_upscale01.png",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "D5 Render 4K Mekan Görselleştirmesi",
+    "original_filename": "Scene 14_upscale01.png",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/d5_Scene_14_upscale01.png",
+    "thumb_url": "/portfolio/assets/files/d5_Scene_14_upscale01.png"
+  },
+  {
+    "id": "d5_Scene_19_1.png",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "D5 Render 4K Mekan Görselleştirmesi",
+    "original_filename": "Scene 19_1.png",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/d5_Scene_19_1.png",
+    "thumb_url": "/portfolio/assets/files/d5_Scene_19_1.png"
+  },
+  {
+    "id": "d5_WhatsApp_Image_2026-09-08_at_23.55.02.jpeg",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "D5 Render İç Mekan Perspektif Görselleştirmesi",
+    "original_filename": "WhatsApp Image 2026-09-08 at 23.55.02.jpeg",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/d5_WhatsApp_Image_2026-09-08_at_23.55.02.jpeg",
+    "thumb_url": "/portfolio/assets/files/d5_WhatsApp_Image_2026-09-08_at_23.55.02.jpeg"
+  },
+  {
+    "id": "d5_WhatsApp_Image_2026-09-08_at_23.56.20.jpeg",
+    "category_id": "d5",
+    "category_name": "D5 Render & 3D Görselleştirme",
+    "tag": "D5 RENDER / 4K",
+    "title": "D5 Render Modern Yaşam Alanı Tasarımı",
+    "original_filename": "WhatsApp Image 2026-09-08 at 23.56.20.jpeg",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/d5_WhatsApp_Image_2026-09-08_at_23.56.20.jpeg",
+    "thumb_url": "/portfolio/assets/files/d5_WhatsApp_Image_2026-09-08_at_23.56.20.jpeg"
+  },
+  {
+    "id": "detay_1220802065_AHMET_SEMIH_OZCAN_A0_DETAY.pdf",
+    "category_id": "detay",
+    "category_name": "Mimari Sistem & Merdiven Detayları",
+    "tag": "UYGULAMA PROJESİ",
+    "title": "A0 Mimari Sistem & Uygulama Detay Paftası",
+    "original_filename": "1220802065_AHMET_SEMİH_ÖZCAN_A0_DETAY.pdf",
+    "type": "pdf",
+    "file_url": "/portfolio/assets/files/detay_1220802065_AHMET_SEMIH_OZCAN_A0_DETAY.pdf",
+    "thumb_url": "/portfolio/assets/thumbs/thumb_detay_1220802065_AHMET_SEMIH_OZCAN_A0_DETAY.png"
+  },
+  {
+    "id": "detay_MERDIVEN_DETAY.pdf",
+    "category_id": "detay",
+    "category_name": "Mimari Sistem & Merdiven Detayları",
+    "tag": "UYGULAMA PROJESİ",
+    "title": "Merdiven Sistem & İmalat Detay Çizimi",
+    "original_filename": "MERDİVEN DETAY.pdf",
+    "type": "pdf",
+    "file_url": "/portfolio/assets/files/detay_MERDIVEN_DETAY.pdf",
+    "thumb_url": "/portfolio/assets/thumbs/thumb_detay_MERDIVEN_DETAY.png"
+  },
+  {
+    "id": "autocad_proje_bilmem_ne.pdf",
+    "category_id": "autocad",
+    "category_name": "AutoCAD Teknik Çizim & Kat Planları",
+    "tag": "AUTOCAD / DWG",
+    "title": "AutoCAD Mimari Proje & Kat Planı Çizimi",
+    "original_filename": "proje bilmem ne.pdf",
+    "type": "pdf",
+    "file_url": "/portfolio/assets/files/autocad_proje_bilmem_ne.pdf",
+    "thumb_url": "/portfolio/assets/thumbs/thumb_autocad_proje_bilmem_ne.png"
+  },
+  {
+    "id": "autocad_ZEMIN_KAT.pdf",
+    "category_id": "autocad",
+    "category_name": "AutoCAD Teknik Çizim & Kat Planları",
+    "tag": "AUTOCAD / DWG",
+    "title": "Zemin Kat Mimari Tefriş & Uygulama Planı",
+    "original_filename": "ZEMİN KAT.pdf",
+    "type": "pdf",
+    "file_url": "/portfolio/assets/files/autocad_ZEMIN_KAT.pdf",
+    "thumb_url": "/portfolio/assets/thumbs/thumb_autocad_ZEMIN_KAT.png"
+  },
+  {
+    "id": "autocad_oa.pdf",
+    "category_id": "autocad",
+    "category_name": "AutoCAD Teknik Çizim & Kat Planları",
+    "tag": "AUTOCAD / DWG",
+    "title": "Mimari Kesit & Cephe Detay Çizimi",
+    "original_filename": "öa.pdf",
+    "type": "pdf",
+    "file_url": "/portfolio/assets/files/autocad_oa.pdf",
+    "thumb_url": "/portfolio/assets/thumbs/thumb_autocad_oa.png"
+  },
+  {
+    "id": "pafta_analiz_paftasi_compressed_1.pdf",
+    "category_id": "pafta",
+    "category_name": "Örnek Pafta Tasarımları & Sunum",
+    "tag": "PAFTA DÜZENİ / BIM",
+    "title": "Kentsel & Mimari Analiz Sunum Paftası",
+    "original_filename": "analiz paftası_compressed (1).pdf",
+    "type": "pdf",
+    "file_url": "/portfolio/assets/files/pafta_analiz_paftasi_compressed_1.pdf",
+    "thumb_url": "/portfolio/assets/thumbs/thumb_pafta_analiz_paftasi_compressed_1.png"
+  },
+  {
+    "id": "pafta_WhatsApp_Image_2026-09-08_at_23.56.47.jpeg",
+    "category_id": "pafta",
+    "category_name": "Örnek Pafta Tasarımları & Sunum",
+    "tag": "PAFTA DÜZENİ / BIM",
+    "title": "Konsept Pafta Tasarımı & Proje Sunumu",
+    "original_filename": "WhatsApp Image 2026-09-08 at 23.56.47.jpeg",
+    "type": "image",
+    "file_url": "/portfolio/assets/files/pafta_WhatsApp_Image_2026-09-08_at_23.56.47.jpeg",
+    "thumb_url": "/portfolio/assets/files/pafta_WhatsApp_Image_2026-09-08_at_23.56.47.jpeg"
+  },
+  {
+    "id": "archicad_kolon_kiris.pdf",
+    "category_id": "archicad",
+    "category_name": "ArchiCAD Çizim & Taşıyıcı Sistem",
+    "tag": "ARCHICAD PROJE",
+    "title": "ArchiCAD Kolon - Kiriş Taşıyıcı Sistem Detayı",
+    "original_filename": "kolon kiriş.pdf",
+    "type": "pdf",
+    "file_url": "/portfolio/assets/files/archicad_kolon_kiris.pdf",
+    "thumb_url": "/portfolio/assets/thumbs/thumb_archicad_kolon_kiris.png"
+  }
+];
+  </script>
+  <script>
+// AHMET SEMİH ÖZCAN - PORTFOLYO İÇERİK & ETKİLEŞİM MOTORU
+let allPortfolioItems = [];
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await loadPortfolioData();
+  setupFilterButtons();
+  setupSmoothScroll();
+});
+
+async function loadPortfolioData() {
+  try {
+    if (window.PRELOADED_PORTFOLIO_ITEMS && Array.isArray(window.PRELOADED_PORTFOLIO_ITEMS) && window.PRELOADED_PORTFOLIO_ITEMS.length > 0) {
+      allPortfolioItems = window.PRELOADED_PORTFOLIO_ITEMS;
+    } else {
+      const res = await fetch('/portfolio/portfolio_items.json');
+      allPortfolioItems = await res.json();
+    }
+    
+    updateCategoryCounts();
+    renderGallery(allPortfolioItems);
+  } catch (err) {
+    console.error("Portfolyo verisi yüklenemedi:", err);
+  }
+}
+
+function updateCategoryCounts() {
+  document.getElementById('countAll').innerText = allPortfolioItems.length;
+  
+  const videoCount = allPortfolioItems.filter(i => i.type === 'video').length;
+  const d5Count = allPortfolioItems.filter(i => i.category_id === 'd5').length;
+  const aiCount = allPortfolioItems.filter(i => i.category_id === 'ai').length;
+  const paftaCount = allPortfolioItems.filter(i => i.category_id === 'pafta').length;
+  const autocadCount = allPortfolioItems.filter(i => i.category_id === 'autocad').length;
+  const detayCount = allPortfolioItems.filter(i => i.category_id === 'detay').length;
+  const archicadCount = allPortfolioItems.filter(i => i.category_id === 'archicad').length;
+
+  document.getElementById('countVideo').innerText = videoCount;
+  document.getElementById('countD5').innerText = d5Count;
+  document.getElementById('countAI').innerText = aiCount;
+  document.getElementById('countPafta').innerText = paftaCount;
+  document.getElementById('countAutocad').innerText = autocadCount;
+  document.getElementById('countDetay').innerText = detayCount;
+  document.getElementById('countArchicad').innerText = archicadCount;
+}
+
+function renderGallery(items) {
+  const container = document.getElementById('portfolioGallery');
+  container.innerHTML = '';
+
+  if (items.length === 0) {
+    container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #94a3b8; padding: 3rem;">Bu kategoride henüz çalışma bulunmuyor.</div>';
+    return;
+  }
+
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.setAttribute('data-category', item.category_id);
+    card.setAttribute('data-type', item.type);
+
+    let mediaHTML = '';
+    let badgeHTML = '';
+    let actionText = '';
+
+    if (item.type === 'video') {
+      badgeHTML = `<span class="type-indicator-badge type-video">🎬 VİDEO ANİMASYON</span>`;
+      mediaHTML = `
+        <video muted loop playsinline preload="metadata">
+          <source src="${item.file_url}" type="video/mp4">
+        </video>
+        <div class="play-icon-overlay">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        </div>
+      `;
+      actionText = 'Videoyu İzle &rarr;';
+    } else if (item.type === 'pdf') {
+      badgeHTML = `<span class="type-indicator-badge type-pdf">📑 PDF ÇİZİM / PAFTA</span>`;
+      mediaHTML = `
+        <img src="${item.thumb_url}" alt="${item.title}" loading="lazy">
+      `;
+      actionText = 'Çizimi / Paftayı İncele &rarr;';
+    } else {
+      badgeHTML = `<span class="type-indicator-badge type-image">📸 4K RENDER</span>`;
+      mediaHTML = `
+        <img src="${item.thumb_url}" alt="${item.title}" loading="lazy">
+      `;
+      actionText = 'Görseli İncele &rarr;';
+    }
+
+    card.innerHTML = `
+      <div class="card-media-wrap">
+        ${badgeHTML}
+        ${mediaHTML}
+      </div>
+      <div class="card-details">
+        <span class="card-category-tag">${item.tag}</span>
+        <h4>${item.title}</h4>
+        <div class="card-footer-action">
+          <span>${item.category_name}</span>
+          <span class="action-text">${actionText}</span>
+        </div>
+      </div>
+    `;
+
+    // Hover oynatma desteği (video kartları için)
+    if (item.type === 'video') {
+      const vid = card.querySelector('video');
+      card.addEventListener('mouseenter', () => {
+        vid.play().catch(() => {});
+      });
+      card.addEventListener('mouseleave', () => {
+        vid.pause();
+        vid.currentTime = 0;
+      });
+    }
+
+    // Tıklama ile Cinema Modalı Açma
+    card.addEventListener('click', () => {
+      openMediaModal(item);
+    });
+
+    container.appendChild(card);
+  });
+}
+
+function setupFilterButtons() {
+  const filterBtns = document.querySelectorAll('.cat-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+      if (filter === 'all') {
+        renderGallery(allPortfolioItems);
+      } else if (filter === 'video') {
+        renderGallery(allPortfolioItems.filter(i => i.type === 'video'));
+      } else {
+        renderGallery(allPortfolioItems.filter(i => i.category_id === filter));
+      }
+    });
+  });
+}
+
+function openMediaModal(item) {
+  const modal = document.getElementById('mediaModal');
+  const body = document.getElementById('modalBody');
+  const title = document.getElementById('modalTitle');
+  const tag = document.getElementById('modalTag');
+  const actions = document.getElementById('modalActions');
+
+  title.innerText = item.title;
+  tag.innerText = item.tag + " • " + item.category_name;
+
+  if (item.type === 'video') {
+    body.innerHTML = `
+      <video controls autoplay playsinline loop style="width:100%; height:100%; object-fit:contain;">
+        <source src="${item.file_url}" type="video/mp4">
+      </video>
+    `;
+    actions.innerHTML = `
+      <a href="${item.file_url}" download class="btn btn-secondary" style="padding:0.5rem 1rem; font-size:0.8rem;">
+        Videoyu İndir
+      </a>
+    `;
+  } else if (item.type === 'pdf') {
+    body.innerHTML = `
+      <iframe src="${item.file_url}#toolbar=1" style="width:100%; height:100%;"></iframe>
+    `;
+    actions.innerHTML = `
+      <a href="${item.file_url}" target="_blank" class="btn btn-primary" style="padding:0.5rem 1rem; font-size:0.8rem;">
+        PDF'i Yeni Sekmede Tam Ekran Aç
+      </a>
+      <a href="${item.file_url}" download class="btn btn-secondary" style="padding:0.5rem 1rem; font-size:0.8rem;">
+        PDF İndir
+      </a>
+    `;
+  } else {
+    body.innerHTML = `
+      <img src="${item.file_url}" alt="${item.title}">
+    `;
+    actions.innerHTML = `
+      <a href="${item.file_url}" target="_blank" class="btn btn-primary" style="padding:0.5rem 1rem; font-size:0.8rem;">
+        Orijinal Çözünürlükte Gör
+      </a>
+    `;
+  }
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMediaModal() {
+  const modal = document.getElementById('mediaModal');
+  const body = document.getElementById('modalBody');
+  // Video varsa sesi ve oynatmayı durdur
+  const vid = body.querySelector('video');
+  if (vid) {
+    vid.pause();
+    vid.src = '';
+  }
+  body.innerHTML = '';
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// ESC tuşu ile kapatma
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeMediaModal();
+  }
+});
+
+function setupSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+}
+
+  </script>
+  <script src="/portfolio/script.js?v=2.3"></script>
+</body>
+</html>
