@@ -119,5 +119,36 @@
             mimar.semihozcan@gmail.com &bull; İstanbul
         </div>
     </div>
+
+    <script>
+        (function() {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const ref = params.get('ref') || params.get('id') || params.get('lid');
+                const email = params.get('email');
+                if (ref || email) {
+                    // 1. Serverless bildirim: Semih'e e-posta ile haber ver
+                    fetch('https://formsubmit.co/ajax/asozcan2525@gmail.com', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                        body: JSON.stringify({
+                            _subject: `⚠️ [ABONELİKTEN AYRILDI] Ofis Ref: ${ref || 'Bilinmiyor'}`,
+                            "🔔 Durum": "Bir ofis e-postadaki listeden çıkma linkine tıkladı.",
+                            "Lead ID": ref || "Belirtilmemiş",
+                            "E-posta": email || "Belirtilmemiş",
+                            "Zaman": new Date().toLocaleString("tr-TR", { timeZone: "Europe/Istanbul" })
+                        })
+                    }).catch(() => {});
+
+                    // 2. Sunucu aktifse veritabanından kalıcı olarak düşür
+                    fetch('/api/unsubscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ lead_id: ref, email: email })
+                    }).catch(() => {});
+                }
+            } catch (e) {}
+        })();
+    </script>
 </body>
 </html>
